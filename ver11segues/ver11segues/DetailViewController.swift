@@ -74,6 +74,10 @@ import UIKit  // this includes Fondation
     switch textField.tag {
     case 0:
       self.selectedPerson.firstName = textField.text
+      println("\(textField.text)")
+      if textField.text == "Joe" || textField.text == "joe" || textField.text == "Joseph" {
+        self.cameraMissingAlert.text = "Yes, his name is Joe"
+      }
     case 1:
       self.selectedPerson.lastName = textField.text
     default:
