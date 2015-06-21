@@ -70,9 +70,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMv-PT-SOL">
-                                <rect key="frame" x="274" y="559" width="52" height="33"/>
+                                <rect key="frame" x="277" y="559" width="46" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Photo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -111,28 +111,24 @@
                                 <rect key="frame" x="5" y="-45" width="8" height="84"/>
                                 <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScottSS.png" translatesAutoresizingMaskIntoConstraints="NO" id="xrd-Qz-9Bf">
-                                <rect key="frame" x="245" y="239" width="110" height="122"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="Bbh-u0-YTt"/>
-                                    <constraint firstAttribute="height" constant="122" id="mjW-Eu-pdg"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo requires camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0KN-fG-sJj">
-                                <rect key="frame" x="222.5" y="531" width="155.5" height="18"/>
+                                <rect key="frame" x="222" y="531" width="155.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me3.png" translatesAutoresizingMaskIntoConstraints="NO" id="kh3-Vh-K1t">
+                                <rect key="frame" x="178" y="170" width="244" height="260"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8OK-HG-6ci" firstAttribute="leading" secondItem="rud-uA-EaB" secondAttribute="trailing" constant="8" id="586-cr-GJw"/>
+                            <constraint firstAttribute="centerX" secondItem="kh3-Vh-K1t" secondAttribute="centerX" id="7qN-xz-eTJ"/>
                             <constraint firstItem="BgA-Iv-mrT" firstAttribute="top" secondItem="2GO-hY-pWS" secondAttribute="bottom" constant="15" id="Ai2-L0-1gN"/>
                             <constraint firstItem="OsU-yV-K7B" firstAttribute="leading" secondItem="8OK-HG-6ci" secondAttribute="trailing" constant="38.5" id="Bb6-xQ-MvD"/>
                             <constraint firstAttribute="centerX" secondItem="SMv-PT-SOL" secondAttribute="centerX" id="ENS-A5-0v7"/>
                             <constraint firstItem="rud-uA-EaB" firstAttribute="leading" secondItem="vzn-TB-ess" secondAttribute="leadingMargin" id="Eca-NL-FB0"/>
-                            <constraint firstAttribute="centerX" secondItem="xrd-Qz-9Bf" secondAttribute="centerX" id="HJ6-LY-bv3"/>
                             <constraint firstItem="SMv-PT-SOL" firstAttribute="top" secondItem="0KN-fG-sJj" secondAttribute="bottom" constant="10" id="HQF-gQ-zTq"/>
                             <constraint firstItem="8mT-hS-lJD" firstAttribute="top" secondItem="2GO-hY-pWS" secondAttribute="bottom" constant="8" id="LSH-FI-bWI"/>
                             <constraint firstItem="OsU-yV-K7B" firstAttribute="top" secondItem="8mT-hS-lJD" secondAttribute="bottom" constant="11" id="Lo1-lM-mk8"/>
@@ -144,8 +140,8 @@
                             <constraint firstItem="BgA-Iv-mrT" firstAttribute="leading" secondItem="vzn-TB-ess" secondAttribute="leadingMargin" id="Y6f-mz-hNw"/>
                             <constraint firstItem="DvT-Lg-SxE" firstAttribute="top" secondItem="vzn-TB-ess" secondAttribute="topMargin" constant="-45" id="YgH-Wm-XXr"/>
                             <constraint firstItem="Au0-9e-jP4" firstAttribute="top" secondItem="SMv-PT-SOL" secondAttribute="bottom" constant="8" id="Z7N-OA-gwD"/>
-                            <constraint firstAttribute="centerY" secondItem="xrd-Qz-9Bf" secondAttribute="centerY" id="amS-fw-b0U"/>
                             <constraint firstItem="V76-Eu-Kd0" firstAttribute="top" secondItem="2GO-hY-pWS" secondAttribute="bottom" constant="15" id="cbc-0s-dIc"/>
+                            <constraint firstAttribute="centerY" secondItem="kh3-Vh-K1t" secondAttribute="centerY" id="dtr-VL-kji"/>
                             <constraint firstItem="8OK-HG-6ci" firstAttribute="top" secondItem="V76-Eu-Kd0" secondAttribute="bottom" constant="26.5" id="eF4-YT-AQR"/>
                             <constraint firstAttribute="centerX" secondItem="DvT-Lg-SxE" secondAttribute="centerX" id="fWp-2D-8cX"/>
                             <constraint firstItem="V76-Eu-Kd0" firstAttribute="leading" secondItem="BgA-Iv-mrT" secondAttribute="trailing" priority="950" constant="8" id="j25-HU-Pi6"/>
@@ -163,7 +159,6 @@
                         <outlet property="cameraMissingAlert" destination="0KN-fG-sJj" id="8Tv-85-j5x"/>
                         <outlet property="firstNameLabel" destination="V76-Eu-Kd0" id="XEo-oB-5PT"/>
                         <outlet property="firstNameTextField" destination="8mT-hS-lJD" id="1hU-WY-4fO"/>
-                        <outlet property="imageView" destination="xrd-Qz-9Bf" id="Mhj-4I-emd"/>
                         <outlet property="lastNameLabel" destination="8OK-HG-6ci" id="8k6-lM-ohX"/>
                         <outlet property="lastNameTextField" destination="OsU-yV-K7B" id="e9t-Tj-bxp"/>
                     </connections>
@@ -192,6 +187,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ScottSS.png" width="110" height="122"/>
+        <image name="me3.png" width="244" height="260"/>
     </resources>
 </document>

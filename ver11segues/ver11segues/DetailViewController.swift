@@ -7,7 +7,7 @@
 import UIKit  // this includes Fondation 
 
   class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  // 3 delegate are in effect in this class
+  // 3 delegate are in effect in this class (UIImagePickerControllerDelegate requires the UINavigationControllerDelegate)
 
   @IBOutlet weak var firstNameLabel: UILabel!
   @IBOutlet weak var lastNameLabel: UILabel!
@@ -52,6 +52,8 @@ import UIKit  // this includes Fondation
 //new for jun 17
     if selectedPerson.lastName == "Namath" {
       lastNameTextField.text = selectedPerson.lastName
+      self.cameraMissingAlert.textColor = UIColor.redColor()
+      self.cameraMissingAlert.text = "Guess his first name"
     } else {
       // leave the lastNameTextField "blank" with its place-holder text
     }
@@ -69,41 +71,72 @@ import UIKit  // this includes Fondation
 
   // when user hits return on soft-KB
   // based on the attached tag (done above), we set the appropriate property of "magic man"(selectedPerson) to textField.text, which
-  //...is obviouly being supplied by a caller invoked by virtue of having decalred this class to conform to the aformentioned protocol
+  //... is obviouly being supplied by a caller invoked by virtue of having decalred this class to conform to the aformentioned protocol
   func textFieldDidEndEditing(textField: UITextField) {
+
+    self.cameraMissingAlert.textColor = UIColor.blackColor()
     switch textField.tag {
     case 0:
       self.selectedPerson.firstName = textField.text
-      println("\(textField.text)")
-      if textField.text == "Joe" || textField.text == "joe" || textField.text == "Joseph" {
-        self.cameraMissingAlert.text = "Yes, his name is Joe"
-      }
     case 1:
       self.selectedPerson.lastName = textField.text
     default:
       break
     }
+
+    if textField.tag == 0 {  // this one line works
+      if self.selectedPerson.lastName == "Namath" {  // this one line works
+        // the next line always evals to false
+        if self.selectedPerson.firstName == "Joe" || self.selectedPerson.firstName == "joe" || self.selectedPerson.firstName == "Joseph"  || self.selectedPerson.firstName == "joe " || self.selectedPerson.firstName == "Joe " {
+          self.cameraMissingAlert.textColor = UIColor.redColor()
+          self.cameraMissingAlert.text = "Yes, his name is Joe"
+        } else {
+          self.cameraMissingAlert.textColor = UIColor.redColor()
+          self.cameraMissingAlert.text = "Opps, try again"
+        }
+      }
+    }
+
   }
 
   @IBAction func photoButtonPressed(sender: AnyObject) {
     if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
       let imagePickerController = UIImagePickerController()
-      imagePickerController.delegate = self
-      imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
-      imagePickerController.allowsEditing = true
-      self.presentViewController(imagePickerController, animated: true, completion: nil)
+      imagePickerController.delegate = self // this is how we get the image into our imageView
+      imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera // could also be...see below
+      //imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary // or, per the following enum
+/* // Strange though, how only the last "Word" of each element in the enum is, or can be, used??
+      enum {
+        UIImagePickerControllerSourceTypePhotoLibrary,
+        UIImagePickerControllerSourceTypeCamera,
+        UIImagePickerControllerSourceTypeSavedPhotosAlbum
+      }
+*/ // Also strange that, it being an enum, Xcode complains when I try to use 0, 1, or 2 in place of Camera above. ??
+
+      // it does not seem to make any difference which quality type I use, each fills the entire screen??
+      UIImagePickerControllerQualityType.TypeLow // also TypeHigh, TypeLow, Type640x480, TypeIFrame1280x720, TypeIFrame960x540, TypeMedium
+      imagePickerController.allowsEditing = true  // if the user crops the image it will return a square image.
+      self.presentViewController(imagePickerController, animated: true, completion: nil) // completion could be a closure if we wanted
+                                                           // ... to have something additional happen at this point.
     } else {
       // Warn the user of the missing camera in both the sim and the really-old-iPod-touch
+      self.cameraMissingAlert.textColor = UIColor.redColor()
       self.cameraMissingAlert.text = "No camera found"
     }
   }
-
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-    if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+                                                                         // vv external name vv internal name
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject: AnyObject]) {
+                                    // dictionaries are also called maps or hash tables in other languages ^^^^^
+                                   // ... in fact all dict use hash tables under the hood (an interview question) 
+    if let image = info[UIImagePickerControllerEditedImage] as? UIImage {  // returns NSObject AnyObject, hence the down-cast
+      // option clicking the ^^^ clicking the doc link, then clicking "Editing Information Keys." shows us the constants we can use ... 
+      // ... as alternatives to UIImagePickerControllerEditedImage
       self.imageView.image = image
-      picker.dismissViewControllerAnimated(true, completion: nil)
+      // on the sim - option key while pinching on the sim allows cropping
+      picker.dismissViewControllerAnimated(true, completion: nil) // again "completion" could have been a closure.
     }
   }
+    
 }
     /*   Xcode gives the following advice for free, if only Siri were so ... thoughtful:]
     In a storyboard-based application, you will often want to do a little preparation before navigation ...

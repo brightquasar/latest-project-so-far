@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource {
   var people = [Person]()            // people is an array of Persons, the () is initializer syntax.
   var myInfo = [String: Person]()    // dictionary syntax, tableView will now get its ... cells, from this dictionary.
   // the initializer syntax () used above, allows us to "appear" to not assign values to these intance vars.
+  // including the word "info" is a good practice when naming a dictionary which is being used in this way.
 
   override func viewDidLoad() {  // only fires once, so, is a bad place to put stuff other than the "initializers" below
     super.viewDidLoad()
@@ -30,17 +31,21 @@ class ViewController: UIViewController, UITableViewDataSource {
     self.people.append(russell)
     self.people.append(emmory)
     self.myInfo["bff"] = russell      // filling-out the dictionary of Persons / people
-    self.myInfo["buddy"] = emmory
+    self.myInfo["buddy"] = emmory  // russel and emmory are the values stored in the dict. 
 
     // Rick has added and fixed code to allow user to add Joe's first name to the tableView, just for fun.
     // Joe Namath has forgotten his first name, he is that old. And ... he is so-very-old, that he no-longer looks good in panty hose:]
+    //let quarterBack = Person(firstName: " ", lastName: "Namath")
+    //let quarterBack = Person(firstName: "", lastName: "Namath")  // tried using the new optional firstName member in Person, But
+                                                                // ... it messes-up my "lastValue" label position, why, who knows??
+    // the following works, albeit we get an extra space in front of "Namath" in the tableView cell. 
     let quarterBack = Person(firstName: " ", lastName: "Namath")
     // the above will allow QB1 to "appear" to not have a first name, sans making firstName optional in Person class.
     people.append(quarterBack)
     //QB1?.firstName  // this is from demo code, not sure what is accomplished here???????????????????????????????
 
-    myInfo ["Rick"] = Richard                   // two synonyms in the dictionary for existing people (aka)
-    myInfo ["Mr Nishiko"] = scott
+    myInfo ["Rick"] = Richard                   // two synonyms in the dictionary for existing people (aka) -- NOT
+    myInfo ["Mr Nishiko"] = scott              // ACTUALLY, Brad says that these keys will over-write the prior keys
   }   // so, apparently, EVERY class has an append method, and if one feeds it a related instance ... each morsel gets appended.
 
  // The following func reloads the table view with the data entered in DetailViewController
@@ -49,8 +54,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     tableView.reloadData()    // parens needed because reloadData is ... what? A func not in the class tableView?
     // this ^^^^^ somehow receives the data entered in DetailViewController ???????????
 
-
-/*  // the code below runs but does not receive the data entered in DetailViewController ????????????????????????????????????
+/*
+  // the code below runs but does not receive the data entered in DetailViewController ????????????????????????????????????
     // I want to do this in a more ... efficient way ... And, how it works is explaied below. BUT  ^^^
 
     let indexPathToReload = NSIndexPath(forItem: 0, inSection: 0)  // option-clicking on NSIndexPath informs us that: ...
@@ -77,10 +82,12 @@ class ViewController: UIViewController, UITableViewDataSource {
 
          //cell.textLabel?.text = nil  // Rick was just testing by uncommenting this line, being super safe:]
 
-    cell.textLabel?.text = personToDisplay.firstName + " " + personToDisplay.lastName   // optional chaining still allows ...
+    if let personsFistname = personToDisplay.firstName { // we could, as done here, leave personsFistname unused. Or, 
+       //do it this way: cell.textLabel?.text = personsFistname + " " + personToDisplay.lastName // tested.
+    cell.textLabel?.text = personToDisplay.firstName! + " " + personToDisplay.lastName   // optional chaining still allows ...
     // ... runtime error in the case where "the entire line is ignored ... "gracefully".
     // "If anything in the entire line is nil the entire line is ignored ... gracefully BUT not as gracefully as the following.
-
+    }
      return cell
   }
 

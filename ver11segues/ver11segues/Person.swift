@@ -6,11 +6,14 @@
 
 import UIKit
 
+// the name of the file, in this case File.swift does not matter, does not have to match the name of the class
+// also, you are allowed the change the file.swift name to Person.swift
+
 class Person {  // here we see that the name of the "file" in our bundle has no effect
 
   //var firstName: String?  // this optional would allow persons to not have a first name
 
-  var firstName: String
+  var firstName: String?
 
   var lastName: String
 
